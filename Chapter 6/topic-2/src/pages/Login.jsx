@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(null);
 
@@ -13,24 +13,27 @@ const Login = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === "") {
-      alert("Email is required");
+    if (username === "") {
+      alert("Username is required");
     }
     if (password === "") {
       alert("Password is required");
     }
-    if (email !== "" && password !== "") {
+    if (username !== "" && password !== "") {
       const data = {
-        email,
+        username,
         password,
       };
-      const response = await fetch("http://localhost:3001/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const result = await response.json();
       if (result.token) {
         localStorage.setItem("token", result.token);
@@ -54,17 +57,17 @@ const Login = (props) => {
             <Col>
               {!token ? (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                  <Form.Group className="mb-3" controlId="formBasicUsername">
+                    <Form.Label>Username address</Form.Label>
                     <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      type="username"
+                      placeholder="Enter username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       required
                     />
                     <Form.Text className="text-muted">
-                      We'll never share your email with anyone else.
+                      We'll never share your username with anyone else.
                     </Form.Text>
                   </Form.Group>
 
