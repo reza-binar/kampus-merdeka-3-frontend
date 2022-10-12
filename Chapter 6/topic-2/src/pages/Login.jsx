@@ -32,14 +32,16 @@ const Login = (props) => {
           "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/login",
           data
         );
-        // {"data": { "token": "ini token" }}
         if (result.data.token) {
+          // Set token from backend to local storage
+          // {"data": { "token": "ini token" }}
           localStorage.setItem("token", result.data.token);
           setToken(result.data.token);
         }
       } catch (error) {
+        // If there are any error it will show the error message from backend
+        // { "message": "Password salah" }
         alert(error.response.data.message);
-        // {"data": { "message": "Password salah" }}
       }
     }
   };
