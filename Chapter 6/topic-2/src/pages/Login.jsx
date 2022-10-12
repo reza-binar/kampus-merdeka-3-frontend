@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
@@ -15,31 +16,30 @@ const Login = (props) => {
     e.preventDefault();
     if (username === "") {
       alert("Username is required");
+      return;
     }
     if (password === "") {
       alert("Password is required");
+      return;
     }
     if (username !== "" && password !== "") {
       const data = {
         username,
         password,
       };
-      const response = await fetch(
-        "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      try {
+        const result = await axios.post(
+          "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/login",
+          data
+        );
+        // {"data": { "token": "ini token" }}
+        if (result.data.token) {
+          localStorage.setItem("token", result.data.token);
+          setToken(result.data.token);
         }
-      );
-      const result = await response.json();
-      if (result.token) {
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
-      } else {
-        alert("Something went wrong!");
+      } catch (error) {
+        alert(error.response.data.message);
+        // {"data": { "message": "Password salah" }}
       }
     }
   };
