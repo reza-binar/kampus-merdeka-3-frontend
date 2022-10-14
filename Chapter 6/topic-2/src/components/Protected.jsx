@@ -15,7 +15,7 @@ function Protected({ children }) {
     //   if (token) {
     //     try {
     //       // Authorize from backend
-    //       const response = await axios.get(
+    //       await axios.get(
     //         "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/me",
     //         {
     //           headers: {
@@ -23,13 +23,6 @@ function Protected({ children }) {
     //           },
     //         }
     //       );
-    //       // If response status not 200, we will redirect to login
-    //       if (response.status !== 200) {
-    //         // remove token
-    //         localStorage.removeItem("token");
-    //         // Redirect to login page
-    //         navigate("/login");
-    //       }
     //     } catch (error) {
     //       if (error.response.status === 401) {
     //         // remove token
@@ -55,13 +48,6 @@ function Protected({ children }) {
               },
             }
           );
-          // If response status not 200, we will redirect to login
-          if (response.status !== 200) {
-            // remove token
-            localStorage.removeItem("token");
-            // Redirect to login page
-            navigate("/login");
-          }
         } catch (error) {
           if (error.response.status === 401) {
             // remove token
