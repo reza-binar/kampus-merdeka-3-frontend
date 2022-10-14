@@ -40,7 +40,7 @@ function Protected({ children }) {
       if (token) {
         try {
           // Authorize from backend
-          const response = await axios.get(
+          await axios.get(
             "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/me",
             {
               headers: {
