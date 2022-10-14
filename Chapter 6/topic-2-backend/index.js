@@ -31,6 +31,18 @@ app.get("/api/v1/auth/me", (req, res) => {
     return res.status(401).json({ message: "Anda belum login" });
   }
 
+  const token = req.headers.authorization.split("Bearer ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Anda belum login" });
+  }
+
+  try {
+    const verify = jwt.verify(token, "Rahasia");
+  } catch (error) {
+    return res.status(401).json({ message: "Token tidak valid" });
+  }
+
   return res.status(200).json({ id: 1, username: "username" });
 });
 
