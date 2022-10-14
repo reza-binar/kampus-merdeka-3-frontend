@@ -11,6 +11,7 @@ import FileProcessing from "./pages/FileProcessing";
 import Login from "./pages/Login";
 import Protected from "./components/Protected";
 import reportWebVitals from "./reportWebVitals";
+import Register from "./pages/Register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -29,6 +30,7 @@ root.render(
       <Route path="/file-processing" element={<FileProcessing />} />
 
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* 404 Page */}
       <Route path="*" element={<NotFound />} />
