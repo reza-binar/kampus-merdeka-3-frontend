@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const Login = (props) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(null);
 
@@ -14,17 +14,17 @@ const Login = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (username === "") {
-      alert("Username is required");
+    if (email === "") {
+      alert("Email is required");
       return;
     }
     if (password === "") {
       alert("Password is required");
       return;
     }
-    if (username !== "" && password !== "") {
+    if (email !== "" && password !== "") {
       const data = {
-        username,
+        email,
         password,
       };
       try {
@@ -59,17 +59,17 @@ const Login = (props) => {
             <Col>
               {!token ? (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Label>Username address</Form.Label>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
                     <Form.Control
-                      type="username"
-                      placeholder="Enter username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                     <Form.Text className="text-muted">
-                      We'll never share your username with anyone else.
+                      We'll never share your email with anyone else.
                     </Form.Text>
                   </Form.Group>
 
