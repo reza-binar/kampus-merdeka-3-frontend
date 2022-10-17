@@ -158,6 +158,18 @@ app.post("/api/v1/auth/google", async (req, res) => {
   }
 });
 
+app.get("/api/docs", (req, res, next) => {
+  try {
+    res.redirect("https://documenter.getpostman.com/view/3884681/2s847ESZqT");
+  } catch (error) {
+    if (NODE_ENV === "production") {
+      error.message = "internal server error";
+    }
+
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
