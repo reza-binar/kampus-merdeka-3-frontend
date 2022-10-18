@@ -13,11 +13,13 @@ import Protected from "./components/Protected";
 import reportWebVitals from "./reportWebVitals";
 import Register from "./pages/Register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Header from "./components/Header";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <GoogleOAuthProvider clientId="1059632848103-4q2ii5js5hegoe6sr10vaou8ep2d6k6l.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about" element={<About />} />

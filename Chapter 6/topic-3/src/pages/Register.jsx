@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import GoogleLogin from "../components/GoogleLogin";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -32,7 +30,7 @@ const Register = (props) => {
       };
       try {
         const result = await axios.post(
-          "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/register",
+          `${process.env.REACT_APP_AUTH_API}/api/v1/auth/register`,
           data
         );
         if (result.data.token) {
@@ -54,16 +52,6 @@ const Register = (props) => {
     setToken(null);
   };
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (response) => {
-      // Send access token to backend
-      console.log(response);
-    },
-    onError: (error) => {
-      alert(error);
-    },
-  });
-
   return (
     <div>
       <header className="App-header">
@@ -72,13 +60,10 @@ const Register = (props) => {
             <Col>
               {!token ? (
                 <>
-                  <div className="d-grid">
-                    <div className="m-auto">
-                      <Button variant="primary" onClick={googleLogin}>
-                        <FontAwesomeIcon icon={faGoogle} /> Register with Google
-                      </Button>
-                    </div>
-                  </div>
+                  <GoogleLogin
+                    setToken={setToken}
+                    label="Register with Google"
+                  />
 
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import GoogleLogin from "../components/GoogleLogin";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ const Login = (props) => {
       };
       try {
         const result = await axios.post(
-          "https://topic-auth-2-backend.herokuapp.com/api/v1/auth/login",
+          `${process.env.REACT_APP_AUTH_API}/api/v1/auth/login`,
           data
         );
         if (result.data.token) {
@@ -58,38 +59,41 @@ const Login = (props) => {
           <Row>
             <Col>
               {!token ? (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                    <Form.Text className="text-muted">
-                      We'll never share your email with anyone else.
-                    </Form.Text>
-                  </Form.Group>
+                <>
+                  <GoogleLogin setToken={setToken} label="Login with Google" />
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                      <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                      </Form.Text>
+                    </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
 
-                  <div className="d-grid gap-2">
-                    <Button variant="primary" size="lg" type="submit">
-                      Submit
-                    </Button>
-                  </div>
-                </Form>
+                    <div className="d-grid gap-2">
+                      <Button variant="primary" size="lg" type="submit">
+                        Submit
+                      </Button>
+                    </div>
+                  </Form>
+                </>
               ) : (
                 <div className="d-grid gap-2">
                   <Button variant="danger" size="lg" onClick={handleLogout}>
