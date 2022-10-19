@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
@@ -14,12 +14,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Header from "./components/Header";
 
 function App() {
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    const tokenLocalStorage = localStorage.getItem("token");
-    setToken(tokenLocalStorage);
-  }, []);
+  const tokenLocalStorage = localStorage.getItem("token");
+  const [token, setToken] = useState(tokenLocalStorage);
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
