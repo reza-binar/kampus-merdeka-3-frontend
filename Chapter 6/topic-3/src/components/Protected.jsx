@@ -2,12 +2,9 @@ import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Protected({ children }) {
+function Protected({ children, token, setToken }) {
   // Navigate
   const navigate = useNavigate();
-
-  // Get token from local storage
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     // Long function
@@ -49,13 +46,14 @@ function Protected({ children }) {
           if (error.response.status === 401) {
             // remove token
             localStorage.removeItem("token");
+            setToken(null);
             // Redirect to login page
             navigate("/login");
           }
         }
       }
     })();
-  }, [token, navigate]);
+  }, [token, navigate, setToken]);
 
   // If no token
   if (!token) {

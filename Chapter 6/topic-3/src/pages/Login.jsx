@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import GoogleLogin from "../components/GoogleLogin";
 
-const Login = (props) => {
+const Login = ({ token, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    const getToken = localStorage.getItem("token");
-    setToken(getToken);
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
