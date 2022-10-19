@@ -14,7 +14,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Header from "./components/Header";
 
 function App() {
+  // Get token from local storage
   const tokenLocalStorage = localStorage.getItem("token");
+  // So we will pas token from local storage to this state
+  // This is global state
+  // For futher, we will use redux for global state (state management)
   const [token, setToken] = useState(tokenLocalStorage);
 
   return (
