@@ -57,6 +57,10 @@ app.post("/api/v1/auth/register", async (req, res) => {
 
     res.status(201).json({ token });
   } catch (error) {
+    if (error.message === "Validation error") {
+      return res.status(400).json({ message: "user has already registered" });
+    }
+
     if (NODE_ENV === "production") {
       error.message = "internal server error";
     }
