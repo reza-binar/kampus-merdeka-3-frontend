@@ -28,7 +28,7 @@ app.post("/api/v1/auth/register", async (req, res) => {
     const { email, password, name } = req.body;
 
     if (!validator.isEmail(email)) {
-      return res.status(401).json({ message: "email is not valid" });
+      return res.status(400).json({ message: "Email is not valid" });
     }
 
     const isStrongPassword = validator.isStrongPassword(password, {
@@ -41,7 +41,7 @@ app.post("/api/v1/auth/register", async (req, res) => {
     });
 
     if (!isStrongPassword) {
-      return res.status(401).json({ message: "password must be stronger" });
+      return res.status(400).json({ message: "Password must be stronger" });
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -58,11 +58,11 @@ app.post("/api/v1/auth/register", async (req, res) => {
     res.status(201).json({ token });
   } catch (error) {
     if (error.message === "Validation error") {
-      return res.status(400).json({ message: "user has already registered" });
+      return res.status(400).json({ message: "User has already registered" });
     }
 
     if (NODE_ENV === "production") {
-      error.message = "internal server error";
+      error.message = "Internal Server Error";
     }
 
     res.status(500).json({ message: error.message });
@@ -74,17 +74,17 @@ app.post("/api/v1/auth/login", async (req, res) => {
     const { email, password } = req.body;
 
     if (!validator.isEmail(email)) {
-      return res.status(401).json({ message: "email is not valid" });
+      return res.status(400).json({ message: "Email is not valid" });
     }
 
     let user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(401).json({ message: "user is not found" });
+      return res.status(401).json({ message: "User is not found" });
     }
 
     const comparison = await bcrypt.compare(password, user.encryptedPassword);
     if (!comparison) {
-      return res.status(401).json({ message: "wrong password" });
+      return res.status(401).json({ message: "Wrong password" });
     }
 
     const token = createToken(user);
@@ -92,7 +92,7 @@ app.post("/api/v1/auth/login", async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     if (NODE_ENV === "production") {
-      error.message = "internal server error";
+      error.message = "Internal Server Error";
     }
 
     res.status(500).json({ message: error.message });
@@ -102,13 +102,13 @@ app.post("/api/v1/auth/login", async (req, res) => {
 app.get("/api/v1/auth/me", async (req, res) => {
   try {
     if (!req.headers.authorization) {
-      return res.status(401).json({ message: "Anda belum login" });
+      return res.status(401).json({ message: "You are not logged in" });
     }
 
     const token = req.headers.authorization.split("Bearer ")[1];
 
     if (!token) {
-      return res.status(401).json({ message: "Anda belum login" });
+      return res.status(401).json({ message: "You are not logged in" });
     }
 
     const verify = jwt.verify(token, "Rahasia");
@@ -117,7 +117,7 @@ app.get("/api/v1/auth/me", async (req, res) => {
       JSON.stringify(await User.findOne({ where: { id: verify.id } }))
     );
     if (!user) {
-      return res.status(401).json({ message: "user is not found" });
+      return res.status(401).json({ message: "User is not found" });
     }
 
     delete user.encryptedPassword;
@@ -125,7 +125,7 @@ app.get("/api/v1/auth/me", async (req, res) => {
     return res.status(200).json(user);
   } catch (error) {
     if (NODE_ENV === "production") {
-      error.message = "unauthorized";
+      error.message = "Your token is not valid";
     }
 
     return res.status(401).json({ message: error.message });
@@ -155,7 +155,7 @@ app.post("/api/v1/auth/google", async (req, res) => {
     res.status(201).json({ token });
   } catch (error) {
     if (NODE_ENV === "production") {
-      error.message = "unauthorized";
+      error.message = "Your token is not valid";
     }
 
     res.status(401).json({ message: error.message });
