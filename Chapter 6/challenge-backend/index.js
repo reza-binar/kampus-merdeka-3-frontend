@@ -27,6 +27,18 @@ app.post("/api/v1/auth/register", async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
+    if (!name) {
+      return res.status(400).json({ message: "Name is required" });
+    }
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
     if (!validator.isEmail(email)) {
       return res.status(400).json({ message: "Email is not valid" });
     }
@@ -72,6 +84,14 @@ app.post("/api/v1/auth/register", async (req, res) => {
 app.post("/api/v1/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
 
     if (!validator.isEmail(email)) {
       return res.status(400).json({ message: "Email is not valid" });
@@ -133,9 +153,13 @@ app.get("/api/v1/auth/me", async (req, res) => {
 });
 
 app.post("/api/v1/auth/google", async (req, res) => {
-  const { access_token } = req.body;
-
   try {
+    const { access_token } = req.body;
+
+    if (!access_token) {
+      return res.status(400).json({ message: "Access Token is required" });
+    }
+
     const response = await axios.get(
       `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`
     );
