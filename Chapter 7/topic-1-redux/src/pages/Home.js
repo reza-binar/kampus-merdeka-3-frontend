@@ -2,12 +2,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import logo from "../logo.svg";
-import { getAllUsers } from "../redux/actions/userActions";
+import { getAllUsers, createNewUser } from "../redux/actions/userActions";
 
 function Home() {
+  // This variable is to dispatch the actions
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Dispatch the getAllUsers actions
     dispatch(getAllUsers());
   }, [dispatch]);
 

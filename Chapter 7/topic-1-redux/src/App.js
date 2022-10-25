@@ -6,6 +6,7 @@ import store from "./redux/store";
 
 function App() {
   return (
+    // We will use the store (temporary database)
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
