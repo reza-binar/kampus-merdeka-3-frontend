@@ -50,8 +50,9 @@ function Home() {
         >
           Learn React
         </a> */}
-        {JSON.stringify(token)}
-        {JSON.stringify(users)}
+        token: {JSON.stringify(token)}
+        <hr />
+        users: {JSON.stringify(users)}
       </header>
     </div>
   );

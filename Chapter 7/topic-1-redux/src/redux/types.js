@@ -3,3 +3,4 @@ export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const UPDATE_USER = "UPDATE_USER";
 
 export const GET_ALL_TODOS = "GET_ALL_TODOS";
+export const CREATE_TODO = "CREATE_TODO";

@@ -18,15 +18,3 @@ export const getAllUsers = () => async (dispatch) => {
     throw error;
   }
 };
-
-// This function will be called in component and it will triggered the reducers
-export const createNewUser = () => {
-  try {
-    return {
-      type: CREATE_NEW_USER,
-      payload: "Ini adalah indar",
-    };
-  } catch (error) {
-    throw error;
-  }
-};
