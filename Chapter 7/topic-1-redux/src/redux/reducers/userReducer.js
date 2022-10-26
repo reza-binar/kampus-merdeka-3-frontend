@@ -3,6 +3,7 @@ import { GET_ALL_USERS, CREATE_NEW_USER } from "../types";
 // The initial state when the application load in first time
 const initialState = {
   users: [],
+  token: localStorage.getItem("token"),
 };
 
 // This function will be triggered when any action dispatching
