@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import logo from "../logo.svg";
-import { getAllUsers, createNewUser } from "../redux/actions/userActions";
+import {
+  getAllUsers,
+  createNewUser,
+  getDetailsUser,
+} from "../redux/actions/userActions";
 
 function Home() {
   // This variable is to dispatch the actions
@@ -18,6 +22,7 @@ function Home() {
   useEffect(() => {
     // Dispatch the getAllUsers actions
     dispatch(getAllUsers());
+    dispatch(getDetailsUser(1));
 
     // No redux
     // (async () => {

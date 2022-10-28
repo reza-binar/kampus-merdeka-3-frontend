@@ -7,7 +7,6 @@ const initialState = {
 
 // This function will be triggered when any action dispatching
 const todoReducer = (state = initialState, action) => {
-  console.log("aku di todo");
   switch (action.type) {
     case GET_ALL_TODOS:
       return {
