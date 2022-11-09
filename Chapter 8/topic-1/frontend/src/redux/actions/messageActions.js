@@ -53,15 +53,22 @@ export const createNewMessage = (message) => async (dispatch, getState) => {
 export const addMessageFromWebsocket =
   (messageData) => async (dispatch, getState) => {
     try {
+      // Get all state from redux
       const { message } = getState();
+
+      // Get messages array
       const { messages } = message;
 
+      // Check if there are any id that same
+      // If there are any id that same, it will return nothing that means it not will to do anything
       if (messages.some((item) => item.id === messageData.id)) {
         return;
       }
 
+      // Make success alert
       toast.success("New message!");
 
+      // Make new message to reducer
       dispatch(createNewMessageReducer(messageData));
     } catch (error) {
       throw error;

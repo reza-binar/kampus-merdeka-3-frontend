@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { io } from "socket.io-client";
+import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client"; // This socket.io package
 import { useDispatch, useSelector } from "react-redux";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -11,6 +11,7 @@ import {
 import MessageItem from "../components/MessageItem";
 import AddMessage from "../components/AddMessage";
 
+// Initialization connect to backend websocket (socket.io)
 const socket = io(process.env.REACT_APP_WEBSOCKET_API);
 
 function Home() {
@@ -18,30 +19,51 @@ function Home() {
 
   const { messages } = useSelector((state) => state.message);
 
+  const [typing, setTyping] = useState(false);
+
+  // This useEffect will get all messages from backend
   useEffect(() => {
-    // Dispatch the getAllUsers actions
+    // Dispatch the getAllMessages actions
     dispatch(getAllMessages());
   }, [dispatch]);
 
+  // This useEffect is to connect to backend websocket (socket.io)
   useEffect(() => {
+    // Connect to backend
     socket.on("connect", () => {});
 
+    // It will listen the event name "message"
     socket.on("message", (message) => {
       dispatch(addMessageFromWebsocket(message));
+    });
+
+    socket.on("ontyping", () => {
+      setTyping(true);
+      setTimeout(() => {
+        setTyping(false);
+      }, 1000);
     });
   }, [dispatch]);
 
   return (
-    <Row className="mt-4">
-      <Col>
-        {messages.length > 0 &&
-          messages.map((message) => (
-            <MessageItem data={message} key={message.id} />
-          ))}
-      </Col>
+    <>
+      <Row className="mt-4">
+        <Col>
+          <h6>{typing && "seseorang sedang mengetik...."}</h6>
+        </Col>
+      </Row>
 
-      <AddMessage />
-    </Row>
+      <Row className="mt-4">
+        <Col>
+          {messages.length > 0 &&
+            messages.map((message) => (
+              <MessageItem data={message} key={message.id} />
+            ))}
+        </Col>
+
+        <AddMessage socket={socket} />
+      </Row>
+    </>
   );
 }
 

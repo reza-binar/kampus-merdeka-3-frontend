@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 import { createNewMessage } from "../redux/actions/messageActions";
 
-function AddMessage() {
+function AddMessage({ socket }) {
   const dispatch = useDispatch();
 
   const [addMessage, setAddMessage] = useState("");
@@ -34,7 +34,10 @@ function AddMessage() {
               type="text"
               placeholder="Add message"
               value={addMessage}
-              onChange={(e) => setAddMessage(e.target.value)}
+              onChange={(e) => {
+                setAddMessage(e.target.value);
+                socket.emit("typing");
+              }}
             />
           </FloatingLabel>
         </Col>

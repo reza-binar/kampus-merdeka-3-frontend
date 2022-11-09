@@ -63,6 +63,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", (reason) => {
     console.log(socket.id + " disconnected because " + reason);
   });
+
+  socket.on("typing", () => {
+    io.emit("ontyping");
+  });
 });
 
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
