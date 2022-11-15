@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import { loginWithGoogle } from "../redux/actions/authActions";
 
@@ -16,7 +17,7 @@ function GoogleLogin({ label }) {
       dispatch(loginWithGoogle(access_token));
     },
     onError: (error) => {
-      alert(error);
+      toast.error(error);
     },
   });
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import { setToken, setUser } from "../reducers/authReducer";
 
@@ -13,12 +14,12 @@ export const register = (data) => async (dispatch) => {
       // {"data": { "token": "ini token" }}
       localStorage.setItem("token", result.data.token);
       dispatch(setToken(result.data.token));
-      return;
+      toast.success("Login success!");
     }
   } catch (error) {
     // If there are any error it will show the error message from backend
     // { "message": "Password salah" }
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -34,13 +35,10 @@ export const login = (data) => async (dispatch) => {
       // {"data": { "token": "ini token" }}
       localStorage.setItem("token", result.data.token);
       dispatch(setToken(result.data.token));
-      return;
+      toast.success("Login success!");
     }
-
-    // Dispatch to reducers
-    alert(result.data.message);
   } catch (error) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -76,10 +74,6 @@ export const logout = () => async (dispatch) => {
   dispatch(setUser(null));
 };
 
-export const setTokenAction = (token) => async (dispatch) => {
-  dispatch(setToken(token));
-};
-
 export const loginWithGoogle = (accessToken) => async (dispatch) => {
   try {
     const data = {
@@ -94,10 +88,11 @@ export const loginWithGoogle = (accessToken) => async (dispatch) => {
       // {"data": { "token": "ini token" }}
       localStorage.setItem("token", result.data.token);
       dispatch(setToken(result.data.token));
+      toast.success("Login success!");
     }
   } catch (error) {
     // If there are any error it will show the error message from backend
     // { "message": "Password salah" }
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };

@@ -1,8 +1,10 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ToastContainer } from "react-toastify";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Todo from "./pages/Todo";
@@ -43,6 +45,8 @@ function App() {
             {/* 404 Page */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+
+          <ToastContainer theme="colored" position="top-right" />
         </BrowserRouter>
       </Provider>
     </GoogleOAuthProvider>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import GoogleLogin from "../components/GoogleLogin";
 import { logout, register } from "../redux/actions/authActions";
@@ -17,15 +18,15 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "") {
-      alert("Name is required");
+      toast.error("Name is required");
       return;
     }
     if (email === "") {
-      alert("Email is required");
+      toast.error("Email is required");
       return;
     }
     if (password === "") {
-      alert("Password is required");
+      toast.error("Password is required");
       return;
     }
     if (email !== "" && password !== "") {
