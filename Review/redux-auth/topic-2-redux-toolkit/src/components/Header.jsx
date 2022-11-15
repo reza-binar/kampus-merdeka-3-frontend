@@ -17,13 +17,7 @@ function Header() {
   useEffect(() => {
     (async () => {
       if (token) {
-        dispatch(
-          me((status) => {
-            if (status === 401) {
-              navigate("/");
-            }
-          })
-        );
+        dispatch(me(() => {}));
       }
     })();
   }, [token, navigate, dispatch]);

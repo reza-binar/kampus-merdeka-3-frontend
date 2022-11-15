@@ -73,6 +73,7 @@ export const me = (callback) => async (dispatch, getState) => {
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("token");
   dispatch(setToken(null));
+  dispatch(setUser(null));
 };
 
 export const setTokenAction = (token) => async (dispatch) => {
