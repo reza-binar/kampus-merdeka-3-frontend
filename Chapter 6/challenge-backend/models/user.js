@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       encryptedPassword: DataTypes.STRING,
       googleId: DataTypes.STRING,
       registeredVia: DataTypes.STRING,
+      type: DataTypes.ENUM("admin", "user"),
     },
     {
       sequelize,

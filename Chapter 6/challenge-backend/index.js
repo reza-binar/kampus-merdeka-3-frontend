@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY = "Rahasia", NODE_ENV } = process.env;
 const { User } = require("./models");
 
-const PORT = process.env.PORT || "8000";
+const PORT = process.env.PORT || "4000";
 const app = express();
 
 app.use(cors());
@@ -18,6 +18,7 @@ function createToken(user) {
     id: user.id,
     name: user.name,
     email: user.email,
+    type: user.token,
   };
 
   return jwt.sign(payload, JWT_SECRET_KEY);
@@ -63,6 +64,7 @@ app.post("/api/v1/auth/register", async (req, res) => {
       name,
       encryptedPassword,
       registeredVia: "web",
+      type: "user",
     });
 
     const token = createToken(user);
@@ -141,6 +143,8 @@ app.get("/api/v1/auth/me", async (req, res) => {
     }
 
     delete user.encryptedPassword;
+    delete user.googleId;
+    delete user.registeredVia;
 
     return res.status(200).json(user);
   } catch (error) {
@@ -172,6 +176,7 @@ app.post("/api/v1/auth/google", async (req, res) => {
         name,
         googleId: sub,
         registeredVia: "google",
+        type: "user",
       });
 
     const token = createToken(user);

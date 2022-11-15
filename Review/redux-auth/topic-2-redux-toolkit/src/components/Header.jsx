@@ -12,7 +12,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { token } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
@@ -57,9 +57,16 @@ function Header() {
               </>
             ) : (
               <>
-                <LinkContainer to="/posts">
-                  <Nav.Link>Posts</Nav.Link>
-                </LinkContainer>
+                {user?.type === "admin" && (
+                  <LinkContainer to="/posts">
+                    <Nav.Link>Posts</Nav.Link>
+                  </LinkContainer>
+                )}
+                {(user?.type === "user" || user?.type === "admin") && (
+                  <LinkContainer to="/about">
+                    <Nav.Link>About</Nav.Link>
+                  </LinkContainer>
+                )}
                 <Nav.Link href="/logout" onClick={handleLogout}>
                   Logout
                 </Nav.Link>

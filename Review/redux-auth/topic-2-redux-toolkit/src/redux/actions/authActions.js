@@ -14,7 +14,7 @@ export const register = (data) => async (dispatch) => {
       // {"data": { "token": "ini token" }}
       localStorage.setItem("token", result.data.token);
       dispatch(setToken(result.data.token));
-      toast.success("Login success!");
+      toast.success("Register success!");
     }
   } catch (error) {
     // If there are any error it will show the error message from backend

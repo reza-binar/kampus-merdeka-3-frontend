@@ -26,6 +26,9 @@ module.exports = {
       registeredVia: {
         type: Sequelize.STRING,
       },
+      type: {
+        type: Sequelize.ENUM("admin", "user"),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

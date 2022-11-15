@@ -17,6 +17,6 @@
   },
   "scripts": {
     "start": "NODE_ENV=production node index.js",
-    "develop": "NODE_ENV=development npx nodemon index.js"
+    "dev": "NODE_ENV=development npx nodemon index.js"
   }
 }

@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { me } from "../redux/actions/authActions";
 
-function Protected({ children }) {
+function Protected({ children, types }) {
   // Navigate
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { token } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
@@ -24,6 +24,14 @@ function Protected({ children }) {
       }
     })();
   }, [token, navigate, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      if (!types.some((type) => type === user.type)) {
+        navigate("/");
+      }
+    }
+  }, [user, types, navigate]);
 
   // If no token
   if (!token) {

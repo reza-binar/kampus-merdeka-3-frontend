@@ -28,11 +28,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/todos" element={<Todo />} />
             <Route path="/userstodos" element={<UsersAndTodos />} />
-            <Route path="/about" element={<About />} />
+            <Route
+              path="/about"
+              element={
+                <Protected types={["user", "admin"]}>
+                  <About />
+                </Protected>
+              }
+            />
             <Route
               path="/posts"
               element={
-                <Protected>
+                <Protected types={["admin"]}>
                   <Posts />
                 </Protected>
               }
