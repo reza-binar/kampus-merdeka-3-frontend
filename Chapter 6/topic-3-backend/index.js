@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const handleGoogleLoginOrRegister = require("./handleGoogleLoginOrRegister");
-const PORT = process.env.PORT || "8000";
+const PORT = process.env.PORT || "4000";
 const app = express();
 
 app.use(cors());

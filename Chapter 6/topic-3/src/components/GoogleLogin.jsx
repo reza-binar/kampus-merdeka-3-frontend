@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 function GoogleLogin({ setToken, label }) {
   const googleLogin = useGoogleLogin({
     onSuccess: async (response) => {
+      console.log(response);
       // Send access token to backend
       try {
         const data = {
