@@ -16,5 +16,9 @@
   "scripts": {
     "start": "node index.js",
     "develop": "npx nodemon index.js"
+  },
+  "volta": {
+    "node": "18.16.0",
+    "pnpm": "8.6.0"
   }
 }

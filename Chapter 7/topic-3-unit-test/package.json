@@ -37,5 +37,9 @@
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
     "react-test-renderer": "^18.2.0"
+  },
+  "volta": {
+    "node": "18.16.0",
+    "pnpm": "8.6.0"
   }
 }

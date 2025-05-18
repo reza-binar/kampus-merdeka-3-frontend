@@ -18,5 +18,9 @@
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development npx nodemon index.js"
+  },
+  "volta": {
+    "node": "18.16.0",
+    "pnpm": "8.6.0"
   }
 }
